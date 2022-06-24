@@ -2,7 +2,6 @@ module Book () where
 
 import Data.Char (isAlpha, isSpace)
 import Data.Maybe (mapMaybe)
-import Prelude hiding (Word)
 
 newtype Letters = Letters String
 
