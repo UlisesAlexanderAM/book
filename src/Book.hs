@@ -36,12 +36,10 @@ stringToLastName = LastName . letterString
 data FullName
   = OnlyName Letters
   | FullName (LastName, FirstName)
-  | FullNameM (LastName, FirstName)
 
 instance Show FullName where
     show (OnlyName a) = show a
     show (FullName (a,b)) = show a ++ ", " ++ show b
-    show (FullNameM (a,b)) = show a ++ ", " ++ show b
     
 
 data Person
