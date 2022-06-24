@@ -22,10 +22,16 @@ newtype FirstName = FirstName Letters
 instance Show FirstName where
     show (FirstName s) = show s
 
+stringToFirstName :: String -> FirstName
+stringToFirstName = FirstName . letterString
+
 newtype LastName = LastName Letters
 
 instance Show LastName where
     show (LastName s) = show s
+
+stringToLastName :: String -> LastName
+stringToLastName = LastName . letterString
 
 data FullName
   = OnlyName Letters
