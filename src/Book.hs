@@ -1,30 +1,43 @@
 module Book () where
 
-import Data.Char (isAlpha)
+import Data.Char (isAlpha, isSpace)
 import Data.Maybe (mapMaybe)
 import Prelude hiding (Word)
 
-newtype Letter = Letter Char deriving (Show)
+newtype Letters = Letters String
 
-letter :: Char -> Maybe Letter
+instance Show Letters where
+    show (Letters c) = c
+
+letterString :: String -> Letters
+letterString = Letters . mapMaybe letter
+
+letter :: Char -> Maybe Char
 letter c =
-  if isAlpha c
-    then Just $ Letter c
+  if isAlpha c || isSpace c
+    then Just c
     else Nothing
 
-letterString :: String -> [Letter]
-letterString = mapMaybe letter
+newtype FirstName = FirstName Letters
 
-type Word = [Letter]
+instance Show FirstName where
+    show (FirstName s) = show s
 
-newtype FirstName = FirstName Word deriving (Show)
+newtype LastName = LastName Letters
 
-newtype LastName = LastName Word deriving (Show)
+instance Show LastName where
+    show (LastName s) = show s
 
 data FullName
-  = OnlyName Word
+  = OnlyName Letters
   | FullName (LastName, FirstName)
-  | FullNameM ([LastName], [FirstName])
+  | FullNameM (LastName, FirstName)
+
+instance Show FullName where
+    show (OnlyName a) = show a
+    show (FullName (a,b)) = show a ++ ", " ++ show b
+    show (FullNameM (a,b)) = show a ++ ", " ++ show b
+    
 
 data Person
   = Person FullName
