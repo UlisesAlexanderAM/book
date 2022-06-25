@@ -9,8 +9,8 @@ newtype Letters = Letters String
 instance Show Letters where
   show (Letters c) = c
 
-letterString :: String -> Letters
-letterString = Letters . mapMaybe letter
+toLetters :: String -> Letters
+toLetters = Letters . mapMaybe letter
 
 letter :: Char -> Maybe Char
 letter c =
@@ -33,8 +33,8 @@ newtype FullName = FullName (LastName, FirstName)
 instance Show FullName where
   show (FullName (a, b)) = show a ++ ", " ++ show b
 
-stringToFullName :: (String, String) -> FullName
-stringToFullName (a, b) = FullName (LastName $ letterString a, FirstName $ letterString b)
+toFullName :: (String, String) -> FullName
+toFullName (a, b) = FullName (LastName $ toLetters a, FirstName $ toLetters b)
 
 data Person
   = PersonFullName FullName
