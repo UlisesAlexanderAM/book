@@ -73,12 +73,12 @@ instance Show Translator where
   show (Translator s) = show s
 
 data BookFormat
-  = PhysicalBook
-  | DigitalBook
+  = Physical
+  | Digital
 
 instance Show BookFormat where
-  show PhysicalBook = "Physical Book"
-  show DigitalBook = "Digital Book"
+  show Physical = "Physical"
+  show Digital = "Digital"
 
 newtype Editor = Editor Person
 
