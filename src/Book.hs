@@ -5,6 +5,7 @@ module Book () where
 
 import Data.Char (isAlpha, isSpace)
 import Data.Maybe (mapMaybe)
+import Data.Time.Calendar (CalendarDiffDays, Day)
 import Numeric.Natural (Natural)
 
 -- Letters: A String that only accept letters
@@ -64,7 +65,12 @@ newtype Editor = Editor Person deriving newtype (Show)
 
 newtype Ilustrator = Ilustrator Person deriving newtype (Show)
 
--- TODO: create a tyoe for published date and publishing period
+newtype PublishedDate = PublishedDate Day deriving newtype (Show, Read)
+
+newtype PublishingPeriod = PublishingPeriod CalendarDiffDays deriving (Show)
+
+newtype PeriodSinceLastPublication = PeriodSinceLastPublication CalendarDiffDays deriving (Show)
+
 -- TODO: decide if use a enum type or a type class for categories and genres
 -- TODO: decide how to aproach optionality before creating book type
 
