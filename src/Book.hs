@@ -47,7 +47,7 @@ newtype Editorial = Editorial String deriving newtype (Show, Read)
 
 newtype Author = Author Person deriving newtype (Show)
 
-newtype Translator = Translator Person deriving (Show)
+newtype Translator = Translator Person deriving newtype (Show)
 
 data BookFormat
   = Physical
@@ -60,15 +60,9 @@ instance Show BookFormat where
   show Digital = "Digital"
 --}
 
-newtype Editor = Editor Person
+newtype Editor = Editor Person deriving newtype (Show)
 
-instance Show Editor where
-  show (Editor s) = show s
-
-newtype Ilustrator = Ilustrator Person
-
-instance Show Ilustrator where
-  show (Ilustrator s) = show s
+newtype Ilustrator = Ilustrator Person deriving newtype (Show)
 
 -- TODO: create a tyoe for published date and publishing period
 -- TODO: decide if use a enum type or a type class for categories and genres
