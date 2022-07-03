@@ -1,40 +1,29 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+
 module Book () where
 
 import Data.Char (isAlpha, isSpace)
 import Data.Maybe (mapMaybe)
 import Numeric.Natural (Natural)
 
-newtype Letters = Letters String
+-- Letters: A String that only accept letters
+newtype Letters = Letters String deriving newtype (Show, Read)
 
-instance Show Letters where
-  show (Letters c) = c
+letter :: Char -> Maybe Char
+letter c
+  | isAlpha c = Just c
+  | isSpace c = Just c
+  | otherwise = Nothing
 
+-- TODO: Decide if continue deleting non letters or send a message.
 toLetters :: String -> Letters
 toLetters = Letters . mapMaybe letter
 
-letter :: Char -> Maybe Char
-letter c =
-  if isAlpha c || isSpace c
-    then Just c
-    else Nothing
+newtype FullName = FullName Letters deriving newtype (Show, Read)
 
-newtype FirstName = FirstName Letters
-
-instance Show FirstName where
-  show (FirstName s) = show s
-
-newtype LastName = LastName Letters
-
-instance Show LastName where
-  show (LastName s) = show s
-
-newtype FullName = FullName (LastName, FirstName)
-
-instance Show FullName where
-  show (FullName (a, b)) = show a ++ ", " ++ show b
-
-toFullName :: (String, String) -> FullName
-toFullName (a, b) = FullName (LastName $ toLetters a, FirstName $ toLetters b)
+toFullName :: String -> FullName
+toFullName = FullName . toLetters
 
 data Person
   = PersonFullName FullName
@@ -42,43 +31,34 @@ data Person
   | Anonymous
 
 instance Show Person where
-  show (PersonFullName (FullName (a, b))) = show a ++ ", " ++ show b
+  show (PersonFullName s) = show s
   show (Alias s) = s
   show Anonymous = "Anonymous"
 
-newtype Title = Title String
+newtype Title = Title String deriving newtype (Show, Read)
 
-instance Show Title where
-  show (Title s) = s
-
-newtype Language = Language [Letters]
-
-instance Show Language where
-  show (Language s) = show s
+newtype Language = Language [Letters] deriving newtype (Show, Read)
 
 newtype NoPages = NoPages Natural
 
 newtype NoWords = NoWords Natural
 
-newtype Editorial = Editorial String
+newtype Editorial = Editorial String deriving newtype (Show, Read)
 
-instance Show Editorial where
-  show (Editorial s) = s
+newtype Author = Author Person deriving newtype (Show)
 
-newtype Author = Author Person deriving (Show)
-
-newtype Translator = Translator Person
-
-instance Show Translator where
-  show (Translator s) = show s
+newtype Translator = Translator Person deriving (Show)
 
 data BookFormat
   = Physical
   | Digital
+  deriving (Show, Read)
 
+{--
 instance Show BookFormat where
   show Physical = "Physical"
   show Digital = "Digital"
+--}
 
 newtype Editor = Editor Person
 
@@ -90,6 +70,29 @@ newtype Ilustrator = Ilustrator Person
 instance Show Ilustrator where
   show (Ilustrator s) = show s
 
---TODO: create a tyoe for published date and publishing period
---TODO: decide if use a enum type or a type class for categories and genres
---TODO: decide how to aproach optionality before creating book type
+-- TODO: create a tyoe for published date and publishing period
+-- TODO: decide if use a enum type or a type class for categories and genres
+-- TODO: decide how to aproach optionality before creating book type
+
+ulisesArguelles :: FullName
+-- ulisesArguelles = FullName (LastName $ letterString "Arguelles", FirstName $ letterString "Ulises")
+ulisesArguelles = toFullName "Arguelles, Ulises"
+
+-- fullNameUAAM = FullNameM (LastName $ letterString "Arguelles Monjaraz", FirstName $ letterString "Ulises Alexander")
+fullNameUAAM :: FullName
+fullNameUAAM = toFullName "Arguelles Monjaraz, Ulises Alexander"
+
+testLetter :: IO ()
+testLetter = print $ toLetters "c"
+
+testLetters2 :: IO ()
+testLetters2 = print $ toLetters "sa54ss"
+
+testWord :: IO ()
+testWord = print $ toLetters "test"
+
+testPerson :: IO ()
+testPerson = print ulisesArguelles
+
+testPerson2 :: IO ()
+testPerson2 = print fullNameUAAM
