@@ -1,86 +1,69 @@
-{-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# OPTIONS_GHC -Wno-unused-top-binds #-}
 
-module Book () where
+module Book (Name, Person, toPersonAlias, toPersonName) where
 
-import Data.Char (isAlpha, isSpace)
-import Data.Maybe (mapMaybe)
-import Data.Time.Calendar (CalendarDiffDays, Day)
+import qualified Data.Time.Calendar as Calendar (CalendarDiffDays, Day)
 import Numeric.Natural (Natural)
 
--- Letters: A String that only accept letters
-newtype Letters = Letters String deriving newtype (Show, Read)
+newtype Language = Language String
 
-letter :: Char -> Maybe Char
-letter c
-  | isAlpha c = Just c
-  | isSpace c = Just c
-  | otherwise = Nothing
-
--- TODO: Decide if continue deleting non letters or send a message.
-toLetters :: String -> Letters
-toLetters = Letters . mapMaybe letter
-
-newtype FullName = FullName Letters deriving newtype (Show, Read)
-
-toFullName :: String -> FullName
-toFullName = FullName . toLetters
+newtype Name = Name String
 
 data Person
-  = PersonFullName FullName
+  = PersonName Name
   | Alias String
   | Anonymous
 
-instance Show Person where
-  show (PersonFullName s) = show s
-  show (Alias s) = s
-  show Anonymous = "Anonymous"
+toPersonName :: String -> Person
+toPersonName = PersonName . Name
 
-newtype Title = Title String deriving newtype (Show, Read)
+toPersonAlias :: String -> Person
+toPersonAlias = Alias
 
-newtype Language = Language [Letters] deriving newtype (Show, Read)
+newtype Author = Author Person
+
+newtype Translator = Translator Person
+
+newtype Editor = Editor Person
+
+newtype Ilustrator = Ilustrator Person
+
+newtype Title = Title String
+
+newtype Editorial = Editorial String
 
 newtype NoPages = NoPages Natural
 
 newtype NoWords = NoWords Natural
-
-newtype Editorial = Editorial String deriving newtype (Show, Read)
-
-newtype Author = Author Person deriving newtype (Show)
-
-newtype Translator = Translator Person deriving newtype (Show)
 
 data BookFormat
   = Physical
   | Digital
   deriving (Show, Read)
 
-{--
-instance Show BookFormat where
-  show Physical = "Physical"
-  show Digital = "Digital"
---}
+newtype PubDate = PubDate Calendar.Day
 
-newtype Editor = Editor Person deriving newtype (Show)
+newtype PubPeriod = PubPeriod Calendar.CalendarDiffDays
 
-newtype Ilustrator = Ilustrator Person deriving newtype (Show)
+newtype PeriodSinceLastPubl = PeriodSinceLastPub Calendar.CalendarDiffDays
 
-newtype PublishedDate = PublishedDate Day deriving newtype (Show, Read)
+class BookGenre a where
+  toGenre :: String -> a
+  fromGenre :: a -> String
 
-newtype PublishingPeriod = PublishingPeriod CalendarDiffDays deriving (Show)
+class BookCategory a where
+  toCategory :: String -> a
+  fromCategory :: a -> String
 
-newtype PeriodSinceLastPublication = PeriodSinceLastPublication CalendarDiffDays deriving (Show)
-
--- TODO: decide if use a enum type or a type class for categories and genres
 -- TODO: decide how to aproach optionality before creating book type
-
-ulisesArguelles :: FullName
+{-
+ulisesArguelles :: Name
 -- ulisesArguelles = FullName (LastName $ letterString "Arguelles", FirstName $ letterString "Ulises")
-ulisesArguelles = toFullName "Arguelles, Ulises"
+ulisesArguelles = toName "Arguelles, Ulises"
 
 -- fullNameUAAM = FullNameM (LastName $ letterString "Arguelles Monjaraz", FirstName $ letterString "Ulises Alexander")
-fullNameUAAM :: FullName
-fullNameUAAM = toFullName "Arguelles Monjaraz, Ulises Alexander"
+fullNameUAAM :: Name
+fullNameUAAM = toName "Arguelles Monjaraz, Ulises Alexander"
 
 testLetter :: IO ()
 testLetter = print $ toLetters "c"
@@ -91,8 +74,21 @@ testLetters2 = print $ toLetters "sa54ss"
 testWord :: IO ()
 testWord = print $ toLetters "test"
 
-testPerson :: IO ()
-testPerson = print ulisesArguelles
+personUAAM1 :: Person
+personUAAM1 = mkPersonFullName "Ulises Alexander Arguelles Monjaraz"
+
+personUAAM2 :: Person
+personUAAM2 = mkPersonAlias "UAAM"
+
+personAnon :: Person
+personAnon = Anonymous
+
+testPerson1 :: IO ()
+testPerson1 = print personUAAM1
 
 testPerson2 :: IO ()
-testPerson2 = print fullNameUAAM
+testPerson2 = print personUAAM2
+
+testPerson3 :: IO ()
+testPerson3 = print personAnon
+-}
