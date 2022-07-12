@@ -67,6 +67,20 @@ library
     default-language: Haskell2010
 
     ghc-options: -Wall
+                 -Wcompat
+                 -Wincomplete-record-updates
+                 -Wincomplete-uni-patterns
+                 -Wredundant-constraints
+                 -Wnoncanonical-monad-instances
+                 -Widentities
+                 -Wmissing-export-lists
+                 -Wpartial-fields
+                 -Wmissing-deriving-strategies
+                 -Wunused-packages
+                 -fhide-source-paths
+                 -freverse-errors
+                 -fwrite-ide-info
+                 -hiedir=.hie
 
 test-suite book-test
     -- Base language which the package is written in.
