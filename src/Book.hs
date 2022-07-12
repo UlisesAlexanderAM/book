@@ -68,11 +68,11 @@ data Person
   | Alias String
   | Anonymous
 
-toPersonName :: String -> Person
-toPersonName = PersonName . Name
+mkPersonName :: String -> Person
+mkPersonName = PersonName . Name
 
-toPersonAlias :: String -> Person
-toPersonAlias = Alias
+mkPersonAlias :: String -> Person
+mkPersonAlias = Alias
 
 newtype Author = Author Person
 
