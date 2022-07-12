@@ -1,11 +1,65 @@
-{-# OPTIONS_GHC -Wno-unused-top-binds #-}
-
-module Book (Name, Person, toPersonAlias, toPersonName) where
+module Book
+  ( Book (..),
+    BookFormat (..),
+    BookSeries (..),
+    Genre (..),
+    Category (..),
+    Tag (..),
+    Isbn (..),
+    Cover (..),
+    Person (Anonymous),
+    mkPersonName,
+    mkPersonAlias,
+    Author (..),
+    Translator (..),
+    Editor (..),
+    Ilustrator (..),
+    Title (..),
+    mkAlternativeTitle,
+    Publisher (..),
+    Language (..),
+    NumPages (..),
+    NumWords (..),
+    PubDate (..),
+    PubPeriod (..),
+    PeriodSinceLastPub (..),
+    ReadingStatus (..),
+    PublishingStatus (..),
+  )
+where
 
 import qualified Data.Time.Calendar as Calendar (CalendarDiffDays, Day)
-import Numeric.Natural (Natural)
+import qualified Numeric.Natural as Nat (Natural)
 
-newtype Language = Language String
+class Book a where
+  changeReadingStatus :: a -> a
+  changePubPeriod :: a -> a
+  updatePeriodSinceLastPub :: a -> a
+  updatePublishingStatus :: a -> a
+
+class Book a => BookFormat a where
+  hasPhysical :: a -> Bool
+  hasDigital :: a -> Bool
+
+class Book a => BookSeries a where
+  addVolume :: a -> a
+
+class Genre a where
+  getGenre :: a -> String
+
+class Category a where
+  getCategory :: a -> String
+
+class Tag a where
+  getTag :: a -> String
+
+class Isbn a where
+  getIsbn :: a -> String
+  mkIsbn :: String -> a
+
+class Cover a where
+  getCover :: a -> b
+  mkCover :: b -> a
 
 newtype Name = Name String
 
