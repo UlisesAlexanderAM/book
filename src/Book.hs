@@ -1,5 +1,6 @@
 module Book
-  ( Book (..),
+  ( -- * Book classes
+    Book (..),
     BookFormat (..),
     BookSeries (..),
     Genre (..),
@@ -7,15 +8,14 @@ module Book
     Tag (..),
     Isbn (..),
     Cover (..),
+
+    -- * Book types
     Person (Anonymous),
-    mkPersonName,
-    mkPersonAlias,
     Author (..),
     Translator (..),
     Editor (..),
     Ilustrator (..),
     Title (..),
-    mkAlternativeTitle,
     Publisher (..),
     Language (..),
     NumPages (..),
@@ -25,6 +25,11 @@ module Book
     PeriodSinceLastPub (..),
     ReadingStatus (..),
     PublishingStatus (..),
+
+    -- * Custom constructors
+    mkPersonAlias,
+    mkAlternativeTitle,
+    mkPersonName,
   )
 where
 
