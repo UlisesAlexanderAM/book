@@ -18,7 +18,7 @@ module Book
     Authors,
     Translator (..),
     Editor (..),
-    Ilustrator (..),
+    Illustrator (..),
     Title (..),
     Publisher (..),
     Language (..),
@@ -92,7 +92,7 @@ newtype Translator = Translator Person deriving newtype (Eq, Show)
 
 newtype Editor = Editor Person deriving newtype (Eq, Show)
 
-newtype Ilustrator = Ilustrator Person deriving newtype (Eq, Show)
+newtype Illustrator = Illustrator Person deriving newtype (Eq, Show)
 
 newtype Title = Title String deriving newtype (Eq, Show)
 
