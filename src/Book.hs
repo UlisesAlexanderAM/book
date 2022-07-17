@@ -2,7 +2,8 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 
 module Book
-  ( -- * Book classes
+  (
+    -- * Book classes
     Book (..),
     BookFormat (..),
     BookSeries (..),
@@ -17,9 +18,14 @@ module Book
     Author (..),
     Authors,
     Translator (..),
+    Translators,
     Editor (..),
+    Editors,
     Illustrator (..),
+    Ilustrators,
     Title (..),
+    AlternativeTitle,
+    AlternativeTitles,
     Publisher (..),
     Language (..),
     NumPages (..),
@@ -32,13 +38,14 @@ module Book
 
     -- * Custom constructors
     mkPersonAlias,
-    mkAlternativeTitle,
-    mkPersonName
+    mkPersonName,
+    mkAlternativeTitle
   )
 where
 
 import qualified Data.Time.Calendar as Calendar (CalendarDiffDays, Day)
 import qualified Numeric.Natural as Nat (Natural)
+import Data.List.NonEmpty (NonEmpty)
 
 class Book a where
   changeReadingStatus :: a -> a
@@ -86,17 +93,25 @@ mkPersonAlias = Alias
 
 newtype Author = Author Person deriving newtype (Eq, Show)
 
-type Authors = [Author]
+type Authors = NonEmpty [Author]
 
 newtype Translator = Translator Person deriving newtype (Eq, Show)
 
+type Translators = [Translator]
+
 newtype Editor = Editor Person deriving newtype (Eq, Show)
 
+type Editors = [Editor]
+
 newtype Illustrator = Illustrator Person deriving newtype (Eq, Show)
+
+type Ilustrators = [Illustrator]
 
 newtype Title = Title String deriving newtype (Eq, Show)
 
 newtype AlternativeTitle = AlternativeTitle Title deriving newtype (Eq, Show)
+
+type AlternativeTitles = [AlternativeTitle]
 
 mkAlternativeTitle :: String -> AlternativeTitle
 mkAlternativeTitle = AlternativeTitle . Title
