@@ -15,6 +15,7 @@ module Book
     -- * Book types
     Person (Anonymous),
     Author (..),
+    Authors,
     Translator (..),
     Editor (..),
     Ilustrator (..),
@@ -32,7 +33,7 @@ module Book
     -- * Custom constructors
     mkPersonAlias,
     mkAlternativeTitle,
-    mkPersonName,
+    mkPersonName
   )
 where
 
@@ -84,6 +85,8 @@ mkPersonAlias :: String -> Person
 mkPersonAlias = Alias
 
 newtype Author = Author Person deriving newtype (Eq, Show)
+
+type Authors = [Author]
 
 newtype Translator = Translator Person deriving newtype (Eq, Show)
 
