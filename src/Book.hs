@@ -1,3 +1,6 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+
 module Book
   ( -- * Book classes
     Book (..),
@@ -66,12 +69,13 @@ class Cover a where
   getCover :: a -> b
   mkCover :: b -> a
 
-newtype Name = Name String
+newtype Name = Name String deriving newtype (Eq, Show)
 
 data Person
   = PersonName Name
   | Alias String
   | Anonymous
+  deriving stock (Eq, Show)
 
 mkPersonName :: String -> Person
 mkPersonName = PersonName . Name
@@ -79,34 +83,34 @@ mkPersonName = PersonName . Name
 mkPersonAlias :: String -> Person
 mkPersonAlias = Alias
 
-newtype Author = Author Person
+newtype Author = Author Person deriving newtype (Eq, Show)
 
-newtype Translator = Translator Person
+newtype Translator = Translator Person deriving newtype (Eq, Show)
 
-newtype Editor = Editor Person
+newtype Editor = Editor Person deriving newtype (Eq, Show)
 
-newtype Ilustrator = Ilustrator Person
+newtype Ilustrator = Ilustrator Person deriving newtype (Eq, Show)
 
-newtype Title = Title String
+newtype Title = Title String deriving newtype (Eq, Show)
 
-newtype AlternativeTitle = AlternativeTitle Title
+newtype AlternativeTitle = AlternativeTitle Title deriving newtype (Eq, Show)
 
 mkAlternativeTitle :: String -> AlternativeTitle
 mkAlternativeTitle = AlternativeTitle . Title
 
-newtype Publisher = Publisher String
+newtype Publisher = Publisher String deriving newtype (Eq, Show)
 
-newtype Language = Language String
+newtype Language = Language String deriving newtype (Eq, Show)
 
-newtype NumPages = NumPages Nat.Natural
+newtype NumPages = NumPages Nat.Natural deriving newtype (Eq, Show)
 
-newtype NumWords = NumWords Nat.Natural
+newtype NumWords = NumWords Nat.Natural deriving newtype (Eq, Show)
 
-newtype PubDate = PubDate Calendar.Day
+newtype PubDate = PubDate Calendar.Day deriving newtype (Eq, Show)
 
-newtype PubPeriod = PubPeriod Calendar.CalendarDiffDays
+newtype PubPeriod = PubPeriod Calendar.CalendarDiffDays deriving newtype (Eq, Show)
 
-newtype PeriodSinceLastPub = PeriodSinceLastPub Calendar.CalendarDiffDays
+newtype PeriodSinceLastPub = PeriodSinceLastPub Calendar.CalendarDiffDays deriving newtype (Eq, Show)
 
 data ReadingStatus
   = Reading
@@ -114,9 +118,11 @@ data ReadingStatus
   | WantedToRead
   | Pause
   | Dropped
+  deriving stock (Eq, Show)
 
 data PublishingStatus
   = Publishing
   | Finished
   | Hiatus
   | Cancelled
+  deriving stock (Eq,Show)
