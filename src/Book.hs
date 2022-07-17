@@ -48,14 +48,14 @@ import qualified Numeric.Natural as Nat (Natural)
 import Data.List.NonEmpty (NonEmpty)
 
 class Book a where
-  changeReadingStatus :: a -> a
-  changePubPeriod :: a -> a
-  updatePeriodSinceLastPub :: a -> a
-  updatePublishingStatus :: a -> a
+  changeReadingStatus :: a  -> ReadingStatus -> a
+  changePubPeriod :: a -> PubPeriod -> a
+  updatePeriodSinceLastPub :: a -> PeriodSinceLastPub -> a
+  updatePublishingStatus :: a -> PublishingStatus -> a
 
 class Book a => BookFormat a where
-  hasPhysical :: a -> Bool
-  hasDigital :: a -> Bool
+  hasPhysical :: a -> Bool -> Bool
+  hasDigital :: a -> Bool -> Bool
 
 class Book a => BookSeries a where
   addVolume :: a -> a
