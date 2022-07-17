@@ -1,5 +1,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE InstanceSigs #-}
 
 module Book
   (
@@ -35,6 +36,7 @@ module Book
     PeriodSinceLastPub (..),
     ReadingStatus (..),
     PublishingStatus (..),
+    SimpleBook(..),
 
     -- * Custom constructors
     mkPersonAlias,
@@ -144,3 +146,27 @@ data PublishingStatus
   | Hiatus
   | Cancelled
   deriving stock (Eq,Show)
+
+data SimpleBook = SimpleBook
+  {
+  title :: Title,
+  authors :: Authors,
+  publisher :: Publisher,
+  language :: Language,
+  numPages :: NumPages,
+  pubDate :: PubDate,
+  pubPeriod :: PubPeriod,
+  periodSinceLastPub :: PeriodSinceLastPub,
+  publishingStatus :: PublishingStatus,
+  readingStatus :: ReadingStatus
+  }
+
+instance Book SimpleBook where
+  changeReadingStatus :: SimpleBook -> ReadingStatus -> SimpleBook
+  changeReadingStatus book status = book {readingStatus = status}
+  changePubPeriod :: SimpleBook -> PubPeriod -> SimpleBook
+  changePubPeriod book period = book {pubPeriod = period}
+  updatePublishingStatus :: SimpleBook -> PublishingStatus -> SimpleBook
+  updatePublishingStatus book status = book {publishingStatus = status}
+  updatePeriodSinceLastPub :: SimpleBook -> PeriodSinceLastPub -> SimpleBook
+  updatePeriodSinceLastPub book lastPub = book {periodSinceLastPub = lastPub}
