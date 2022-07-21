@@ -4,7 +4,7 @@
 
 module Publication
   (
-    -- * Book classes
+    -- * Publication classes
     Publication (..),
     PublicationFormat (..),
     Serial (..),
@@ -14,7 +14,7 @@ module Publication
     Isbn (..),
     Cover (..),
 
-    -- * Book types
+    -- * Publication types
     Person (Anonymous),
     Author (..),
     Authors,
