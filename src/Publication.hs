@@ -5,9 +5,9 @@
 module Publication
   (
     -- * Book classes
-    Book (..),
-    BookFormat (..),
-    BookSeries (..),
+    Publication (..),
+    PublicationFormat (..),
+    Serial (..),
     Genre (..),
     Category (..),
     Tag (..),
@@ -49,17 +49,17 @@ import qualified Data.Time.Calendar as Calendar (CalendarDiffDays, Day)
 import qualified Numeric.Natural as Nat (Natural)
 import Data.List.NonEmpty (NonEmpty)
 
-class Book a where
+class Publication a where
   changeReadingStatus :: a  -> ReadingStatus -> a
   changePubPeriod :: a -> PubPeriod -> a
   updatePeriodSinceLastPub :: a -> PeriodSinceLastPub -> a
   updatePublishingStatus :: a -> PublishingStatus -> a
 
-class Book a => BookFormat a where
+class Publication a => PublicationFormat a where
   hasPhysical :: a -> Bool -> Bool
   hasDigital :: a -> Bool -> Bool
 
-class Book a => BookSeries a where
+class Publication a => Serial a where
   addVolume :: a -> a
 
 class Genre a where
@@ -161,7 +161,7 @@ data SimpleBook = SimpleBook
   readingStatus :: ReadingStatus
   }
 
-instance Book SimpleBook where
+instance Publication SimpleBook where
   changeReadingStatus :: SimpleBook -> ReadingStatus -> SimpleBook
   changeReadingStatus book status = book {readingStatus = status}
   changePubPeriod :: SimpleBook -> PubPeriod -> SimpleBook
