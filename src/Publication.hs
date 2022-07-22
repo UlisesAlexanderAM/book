@@ -26,7 +26,8 @@ module Publication
     AlternativeTitle,
     AlternativeTitles,
     Publisher (..),
-    Language (..),
+    OriginalLanguage (..),
+    PublicationLanguage (..),
     NumPages (..),
     NumWords (..),
     PubDate (..),
@@ -115,7 +116,9 @@ mkAlternativeTitle = AlternativeTitle . Title
 
 newtype Publisher = Publisher String deriving newtype (Eq, Show)
 
-newtype Language = Language String deriving newtype (Eq, Show)
+newtype OriginalLanguage = OriginalLanguage String deriving newtype (Eq, Show)
+
+newtype PublicationLanguage = PublicationLanguage String deriving newtype (Eq,Show)
 
 newtype NumPages = NumPages Nat.Natural deriving newtype (Eq, Show)
 
@@ -151,7 +154,7 @@ data SimpleBook = SimpleBook
   { title :: Title,
     authors :: Authors,
     publisher :: Publisher,
-    language :: Language,
+    publicationLanguage :: PublicationLanguage,
     numPages :: NumPages,
     pubDate :: PubDate,
     pubPeriod :: PubPeriod,
