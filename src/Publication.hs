@@ -6,7 +6,6 @@ module Publication
   (
     -- * Publication classes
     Publication (..),
-    PublicationFormat (..),
     Serial (..),
     Genre (..),
     Category (..),
@@ -34,6 +33,7 @@ module Publication
     PubDate (..),
     PubPeriod (..),
     PeriodSinceLastPub (..),
+    PublicationFormat (..),
     ReadingStatus (..),
     PublishingStatus (..),
     SimpleBook(..),
@@ -54,10 +54,6 @@ class Publication a where
   changePubPeriod :: a -> PubPeriod -> a
   updatePeriodSinceLastPub :: a -> PeriodSinceLastPub -> a
   updatePublishingStatus :: a -> PublishingStatus -> a
-
-class Publication a => PublicationFormat a where
-  hasPhysical :: a -> Bool -> Bool
-  hasDigital :: a -> Bool -> Bool
 
 class Publication a => Serial a where
   addVolume :: a -> a
@@ -131,6 +127,11 @@ newtype PubDate = PubDate Calendar.Day deriving newtype (Eq, Show)
 newtype PubPeriod = PubPeriod Calendar.CalendarDiffDays deriving newtype (Eq, Show)
 
 newtype PeriodSinceLastPub = PeriodSinceLastPub Calendar.CalendarDiffDays deriving newtype (Eq, Show)
+
+data PublicationFormat
+  = Physical
+  | Digital
+  deriving stock (Eq, Show)
 
 data ReadingStatus
   = Reading
