@@ -3,8 +3,7 @@
 {-# LANGUAGE InstanceSigs #-}
 
 module Publication
-  (
-    -- * Publication classes
+  ( -- * Publication classes
     Publication (..),
     Serial (..),
     Genre (..),
@@ -36,21 +35,21 @@ module Publication
     PublicationFormat (..),
     ReadingStatus (..),
     PublishingStatus (..),
-    SimpleBook(..),
+    SimpleBook (..),
 
     -- * Custom constructors
     mkPersonAlias,
     mkPersonName,
-    mkAlternativeTitle
+    mkAlternativeTitle,
   )
 where
 
+import qualified Data.List.NonEmpty as NE       (NonEmpty)
 import qualified Data.Time.Calendar as Calendar (CalendarDiffDays, Day)
-import qualified Numeric.Natural as Nat (Natural)
-import Data.List.NonEmpty (NonEmpty)
+import qualified Numeric.Natural    as Nat      (Natural)
 
 class Publication a where
-  changeReadingStatus :: a  -> ReadingStatus -> a
+  changeReadingStatus :: a -> ReadingStatus -> a
   changePubPeriod :: a -> PubPeriod -> a
   updatePeriodSinceLastPub :: a -> PeriodSinceLastPub -> a
   updatePublishingStatus :: a -> PublishingStatus -> a
@@ -91,7 +90,7 @@ mkPersonAlias = Alias
 
 newtype Author = Author Person deriving newtype (Eq, Show)
 
-type Authors = NonEmpty [Author]
+type Authors = NE.NonEmpty [Author]
 
 newtype Translator = Translator Person deriving newtype (Eq, Show)
 
@@ -146,20 +145,19 @@ data PublishingStatus
   | Finished
   | Hiatus
   | Cancelled
-  deriving stock (Eq,Show)
+  deriving stock (Eq, Show)
 
 data SimpleBook = SimpleBook
-  {
-  title :: Title,
-  authors :: Authors,
-  publisher :: Publisher,
-  language :: Language,
-  numPages :: NumPages,
-  pubDate :: PubDate,
-  pubPeriod :: PubPeriod,
-  periodSinceLastPub :: PeriodSinceLastPub,
-  publishingStatus :: PublishingStatus,
-  readingStatus :: ReadingStatus
+  { title :: Title,
+    authors :: Authors,
+    publisher :: Publisher,
+    language :: Language,
+    numPages :: NumPages,
+    pubDate :: PubDate,
+    pubPeriod :: PubPeriod,
+    periodSinceLastPub :: PeriodSinceLastPub,
+    publishingStatus :: PublishingStatus,
+    readingStatus :: ReadingStatus
   }
 
 instance Publication SimpleBook where
