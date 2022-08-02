@@ -59,18 +59,23 @@ class Publication a where
 
 class Publication a => Collection a where
   getCollectionTitle :: a -> String
+  getCollectionTitle = getPublicationTitle
 
 class Publication a => Serial a where
-  getSeriesTittle :: a -> String
+  getSeriesTitle :: a -> String
+  getSeriesTitle = getPublicationTitle
   updateVolumes :: a -> Int -> a
   changePubPeriod :: a -> PubPeriod -> a
   updatePublishingStatus :: a -> PublishingStatus -> a
   getVolume :: a -> Int
 
+
 class Serial a => Periodical a where
   getPeriodicalTitle :: a -> String
+  getPeriodicalTitle = getSeriesTitle
   getPeriodicalPeriod :: a -> PeriodicalPeriod
   getIssue :: a -> Int
+
 
 class Genre a where
   getGenre :: a -> String
