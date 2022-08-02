@@ -5,7 +5,9 @@
 module Publication
   ( -- * Publication classes
     Publication (..),
+    Collection (..),
     Serial (..),
+    Periodical (..),
     Genre (..),
     Category (..),
     Tag (..),
@@ -32,6 +34,7 @@ module Publication
     NumWords (..),
     PubDate (..),
     PubPeriod (..),
+    PeriodicalPeriod (..),
     PeriodSinceLastPub (..),
     PublicationFormat (..),
     ReadingStatus (..),
@@ -45,18 +48,29 @@ module Publication
   )
 where
 
-import qualified Data.List.NonEmpty as NE       (NonEmpty)
+import qualified Data.List.NonEmpty as NE (NonEmpty)
 import qualified Data.Time.Calendar as Calendar (CalendarDiffDays, Day)
-import qualified Numeric.Natural    as Nat      (Natural)
+import qualified Numeric.Natural as Nat (Natural)
 
 class Publication a where
+  getPublicationTitle :: a -> String
   changeReadingStatus :: a -> ReadingStatus -> a
-  changePubPeriod :: a -> PubPeriod -> a
   updatePeriodSinceLastPub :: a -> PeriodSinceLastPub -> a
-  updatePublishingStatus :: a -> PublishingStatus -> a
+
+class Publication a => Collection a where
+  getCollectionTitle :: a -> String
 
 class Publication a => Serial a where
-  addVolume :: a -> a
+  getSeriesTittle :: a -> String
+  updateVolumes :: a -> Int -> a
+  changePubPeriod :: a -> PubPeriod -> a
+  updatePublishingStatus :: a -> PublishingStatus -> a
+  getVolume :: a -> Int
+
+class Serial a => Periodical a where
+  getPeriodicalTitle :: a -> String
+  getPeriodicalPeriod :: a -> PeriodicalPeriod
+  getIssue :: a -> Int
 
 class Genre a where
   getGenre :: a -> String
@@ -68,8 +82,8 @@ class Tag a where
   getTag :: a -> String
 
 class Isbn a where
-  getIsbn :: a -> String
   mkIsbn :: String -> a
+  getIsbn :: a -> String
 
 class Cover a where
   getCover :: a -> b
@@ -118,7 +132,7 @@ newtype Publisher = Publisher String deriving newtype (Eq, Show)
 
 newtype OriginalLanguage = OriginalLanguage String deriving newtype (Eq, Show)
 
-newtype PublicationLanguage = PublicationLanguage String deriving newtype (Eq,Show)
+newtype PublicationLanguage = PublicationLanguage String deriving newtype (Eq, Show)
 
 newtype NumPages = NumPages Nat.Natural deriving newtype (Eq, Show)
 
@@ -150,6 +164,15 @@ data PublishingStatus
   | Cancelled
   deriving stock (Eq, Show)
 
+data PeriodicalPeriod
+  = Weekly
+  | Biweekly
+  | Monthly
+  | Bimonthly
+  | Quaterly
+  | Annually
+  deriving stock (Eq, Show)
+
 data SimpleBook = SimpleBook
   { title :: Title,
     authors :: Authors,
@@ -157,18 +180,16 @@ data SimpleBook = SimpleBook
     publicationLanguage :: PublicationLanguage,
     numPages :: NumPages,
     pubDate :: PubDate,
-    pubPeriod :: PubPeriod,
     periodSinceLastPub :: PeriodSinceLastPub,
-    publishingStatus :: PublishingStatus,
     readingStatus :: ReadingStatus
   }
 
 instance Publication SimpleBook where
+  getPublicationTitle :: SimpleBook -> String
+  getPublicationTitle = show . title
+
   changeReadingStatus :: SimpleBook -> ReadingStatus -> SimpleBook
   changeReadingStatus book status = book {readingStatus = status}
-  changePubPeriod :: SimpleBook -> PubPeriod -> SimpleBook
-  changePubPeriod book period = book {pubPeriod = period}
-  updatePublishingStatus :: SimpleBook -> PublishingStatus -> SimpleBook
-  updatePublishingStatus book status = book {publishingStatus = status}
+
   updatePeriodSinceLastPub :: SimpleBook -> PeriodSinceLastPub -> SimpleBook
   updatePeriodSinceLastPub book lastPub = book {periodSinceLastPub = lastPub}
