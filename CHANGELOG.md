@@ -2,86 +2,86 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0.0] - 2022-08-02
+## [0.1.0.0] - 2022-09-25
 
 ### Other
 
 - Cabal init generated files and .gitignore for Haskell from github/gitignore
- ([4ab7e31](4ab7e313ef3aa67f2e02a2fa2960b560e316c97f))
+ ([4ab7e31](commit/4ab7e313ef3aa67f2e02a2fa2960b560e316c97f))
 
 - Rename files
- ([2251358](22513585781b6a9beb10ab5de2bb6565b3a5ffcb))
+ ([2251358](commit/22513585781b6a9beb10ab5de2bb6565b3a5ffcb))
 
 - Add types and a function to ensure that the full name of a person has only letters.
- ([b1cfc04](b1cfc04682e848565518cffbd25ea068349856d3))
+ ([b1cfc04](commit/b1cfc04682e848565518cffbd25ea068349856d3))
 
 - Add instances of Show and functions to properly display the types.
- ([644452f](644452f8c6444ed002b6ddbed0e4561af1c1c9c3))
+ ([644452f](commit/644452f8c6444ed002b6ddbed0e4561af1c1c9c3))
 
 - Delete unused import
- ([0195890](0195890f03b61d8e7e0494cfacf9a822ca5c62e4))
+ ([0195890](commit/0195890f03b61d8e7e0494cfacf9a822ca5c62e4))
 
 - Add functions to convert String to  types FirstName and LastName
- ([8b52852](8b528522c8d933236aa88abe6112137b943c063d))
+ ([8b52852](commit/8b528522c8d933236aa88abe6112137b943c063d))
 
 - Remove duplicate code
- ([6f14697](6f14697141bf17afb93a721c80f4ccd1609161ba))
+ ([6f14697](commit/6f14697141bf17afb93a721c80f4ccd1609161ba))
 
 - Replace functions to transform from string to intermediate representations (FirstName,LastName) for a single function from string to FullName
- ([212ef0e](212ef0e2b73e1e5774b090ccfb8a1c548021a8a3))
+ ([212ef0e](commit/212ef0e2b73e1e5774b090ccfb8a1c548021a8a3))
 
 - Create more types relevants for books
- ([9491910](9491910057c75ba2129a33b9556a5b94d44cc0cd))
+ ([9491910](commit/9491910057c75ba2129a33b9556a5b94d44cc0cd))
 
 - Redefine BookFormat
- ([23cb28c](23cb28c87086300bd0adb31ea285702e5506bb00))
+ ([23cb28c](commit/23cb28c87086300bd0adb31ea285702e5506bb00))
 
 - Rename some functions
- ([500bb72](500bb72827fbd044e7def87e6a682d2523af252a))
+ ([500bb72](commit/500bb72827fbd044e7def87e6a682d2523af252a))
 
 - Modify cabal file
 
 - Modify cabal file to use the base package from GHC 9.2.2 and add GHC option -Wall
- ([10a8adb](10a8adb73e161ea7a8bceee8fe50ae594210d088))
+ ([10a8adb](commit/10a8adb73e161ea7a8bceee8fe50ae594210d088))
 
 - Use GeneralizedNewtypeDeriving and DerivingStrategies
- ([8e42726](8e42726033362af962ef70139bc4806b436e00df))
+ ([8e42726](commit/8e42726033362af962ef70139bc4806b436e00df))
 
 - Use GeneralizedNewtypeDeriving and DerivingStrategies
- ([d326f69](d326f6947b442519c54a5f4106fb48895fd9c97b))
+ ([d326f69](commit/d326f6947b442519c54a5f4106fb48895fd9c97b))
 
 - Create new types related to time periods
- ([7d62ae6](7d62ae6f1964153ca17f8237c6e4175975b41edb))
+ ([7d62ae6](commit/7d62ae6f1964153ca17f8237c6e4175975b41edb))
 
 - Add new typeclasses and remove derivation from show and read
- ([1c148b8](1c148b87d77d8abd363f8e824ee16a5e1639117e))
+ ([1c148b8](commit/1c148b87d77d8abd363f8e824ee16a5e1639117e))
 
 - Add some recommend ghc-options
- ([bf65a4f](bf65a4fa8677ecf072e192bc5a9a284e285dded2))
+ ([bf65a4f](commit/bf65a4fa8677ecf072e192bc5a9a284e285dded2))
 
 - Add some typeclasses and a complete export list
- ([ba5aa64](ba5aa642a74e02835a8467c01d49061b0ce9a4d3))
+ ([ba5aa64](commit/ba5aa642a74e02835a8467c01d49061b0ce9a4d3))
 
 - Change functions names
 
 - Change name of function "toPersonName" to "mkPersonName"
 - Change name of function "toPersonAlias" to "mkPersonAlias"
- ([df76be7](df76be7268eaa3cc684c7ab391814086a956baf2))
+ ([df76be7](commit/df76be7268eaa3cc684c7ab391814086a956baf2))
 
 - Reorganize types and add some new types
- ([6c2bbb2](6c2bbb2e6c945528e6b7f2bc3606d40623e12a64))
+ ([6c2bbb2](commit/6c2bbb2e6c945528e6b7f2bc3606d40623e12a64))
 
 - Add documentation for the export list
- ([c902848](c902848112354ac399c7f3004214a4c4e67b2c9a))
+ ([c902848](commit/c902848112354ac399c7f3004214a4c4e67b2c9a))
 
 - Add derivation of the classes Show an Eq
- ([ac4ba72](ac4ba728a5de2efa80397e14f55694c8f9932a55))
+ ([ac4ba72](commit/ac4ba728a5de2efa80397e14f55694c8f9932a55))
 
 - Add type synonym for a list of Author (Authors)
- ([fd0b23c](fd0b23ce590708e5a0d50cbc0a387a4c786c566e))
+ ([fd0b23c](commit/fd0b23ce590708e5a0d50cbc0a387a4c786c566e))
 
 - Correct typo
- ([5d7940b](5d7940b088c5ea5c711a4d6c0c3429dad0a8b099))
+ ([5d7940b](commit/5d7940b088c5ea5c711a4d6c0c3429dad0a8b099))
 
 - Add type synonyms
 
@@ -89,52 +89,55 @@ All notable changes to this project will be documented in this file.
 - Editors as a list of Editor
 - Illustrators as a list of Illustrator
 - Change Authors from a list of Author to a NonEmpty list of Author
- ([3a06819](3a06819767a9a87a1702bcc8d8545ac22bc572e5))
+ ([3a06819](commit/3a06819767a9a87a1702bcc8d8545ac22bc572e5))
 
 - Refined type signatures
- ([e81f659](e81f65914deacfc6e7624dc5cc85f31f20f2f9e5))
+ ([e81f659](commit/e81f65914deacfc6e7624dc5cc85f31f20f2f9e5))
 
 - Create type SimpleBook
 
 - Create type SimpleBook as an example to use some types and classes
   defined in this library.
- ([fb25bd1](fb25bd120dfbf1928c134b9fd65bea9200ddaf7a))
+ ([fb25bd1](commit/fb25bd120dfbf1928c134b9fd65bea9200ddaf7a))
 
 - Renaming library from Book to Publication
- ([6e7faa2](6e7faa2f28ca2a28965e905c19ecc0535ea3d811))
+ ([6e7faa2](commit/6e7faa2f28ca2a28965e905c19ecc0535ea3d811))
 
 - Refactoring
 
 - Renaming classes to fit with the new library name
- ([e3272f3](e3272f31706dfc08073cb4c1bbb9d136ea7a8bb6))
+ ([e3272f3](commit/e3272f31706dfc08073cb4c1bbb9d136ea7a8bb6))
 
 - Change documentation strings
- ([91d9f5a](91d9f5a1ff6de57f06302809d7c307008ed599a7))
+ ([91d9f5a](commit/91d9f5a1ff6de57f06302809d7c307008ed599a7))
 
 - Changes in cabal file
- ([990fd72](990fd72f1661a7caf7b44657e1c2ae1686fdc366))
+ ([990fd72](commit/990fd72f1661a7caf7b44657e1c2ae1686fdc366))
 
 - Change PublicationFormat from a class type to a data type
- ([913ca84](913ca84a9d9303da8ff5451a2448a8dd53f81af8))
+ ([913ca84](commit/913ca84a9d9303da8ff5451a2448a8dd53f81af8))
 
 - Formatting
- ([dc17b33](dc17b33d015953c4dcbc966f3d3a3352e73107a1))
+ ([dc17b33](commit/dc17b33d015953c4dcbc966f3d3a3352e73107a1))
 
 - Split Language Type
 
 - Split the Language type into:
   * OriginalLanguage
   * PublicationLanguage
- ([fe15143](fe15143faa721d55e93097129523a2f8a36edbd2))
+ ([fe15143](commit/fe15143faa721d55e93097129523a2f8a36edbd2))
 
 - Create new type classes
 
 - Collection
 - Periodical
- ([0ef3cde](0ef3cde98f7b5b0b3ee593607aa4979643184b38))
+ ([0ef3cde](commit/0ef3cde98f7b5b0b3ee593607aa4979643184b38))
 
 - Fixed typo
- ([f6523b0](f6523b0d20aee14b1c044be989058f869c18a0b3))
+ ([f6523b0](commit/f6523b0d20aee14b1c044be989058f869c18a0b3))
+
+- Add a Changelog
+ ([ba62cc7](commit/ba62cc70647d0c02c73c9b9be7936d00824c1b09))
 
 
 <!-- generated by git-cliff -->
