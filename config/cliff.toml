@@ -52,6 +52,7 @@ commit_parsers = [
     { message = "^test", group = "Testing"},
     { message = "^chore\\(release\\): prepare for", skip = true},
     { message = "^chore", group = "Miscellaneous Tasks"},
+    { message = "^ci", group = "CI/CD"},
     { body = ".*security", group = "Security"},
     { message = ".*", group = "Other", default_scope = "other"},
 ]
