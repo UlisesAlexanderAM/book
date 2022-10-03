@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### Bug Fixes
+- Change name of the module to the correct one
+
+## [0.2.0.1] - 2022-10-03
+
+### Documentation
+- Update version in cabal file
+
 ## [0.2.0.0] - 2022-10-03
 
 ### Bug Fixes
