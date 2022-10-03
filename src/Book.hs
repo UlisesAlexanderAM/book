@@ -2,7 +2,7 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE InstanceSigs #-}
 
-module Publication
+module Book
   ( -- * Publication classes
     Publication (..),
     Collection (..),
