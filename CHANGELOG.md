@@ -2,11 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [0.2.0.0] - 2022-10-03
+
 ### Bug Fixes
 - Modify Changelog format
 
+### CI/CD
+- Create a workflow to auto generate a changelog
+- Fix typo in "Generate changelog" workflow
+- Add config file for cliff-git
+- Add a Haskell workflow
+- Add CI/CD group on git-cliff
+
+### Miscellaneous Tasks
+- Modify Changelog format
+
+### Other
+- Merge branch 'main' of https://github.com/UlisesAlexanderAM/book
+
+
+### Refactor
+- Upgrade to version 3.4 of .cabal specification
+
 ## [0.1.0.0] - 2022-09-25
+
 ### Other
 - Cabal init generated files and .gitignore for Haskell from github/gitignore
 
