@@ -1,6 +1,3 @@
-{-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE InstanceSigs #-}
 
 module Book
   ( -- * Publication classes
@@ -51,18 +48,20 @@ where
 import qualified Data.List.NonEmpty as NE (NonEmpty)
 import qualified Data.Time.Calendar as Calendar (CalendarDiffDays, Day)
 import qualified Numeric.Natural as Nat (Natural)
+import qualified RIO.Text as T
+import RIO
 
 class Publication a where
-  getPublicationTitle :: a -> String
+  getPublicationTitle :: a -> Text
   changeReadingStatus :: a -> ReadingStatus -> a
   updatePeriodSinceLastPub :: a -> PeriodSinceLastPub -> a
 
 class Publication a => Collection a where
-  getCollectionTitle :: a -> String
+  getCollectionTitle :: a -> Text
   getCollectionTitle = getPublicationTitle
 
 class Publication a => Serial a where
-  getSeriesTitle :: a -> String
+  getSeriesTitle :: a -> Text
   getSeriesTitle = getPublicationTitle
   updateVolumes :: a -> Int -> a
   changePubPeriod :: a -> PubPeriod -> a
@@ -71,41 +70,41 @@ class Publication a => Serial a where
 
 
 class Serial a => Periodical a where
-  getPeriodicalTitle :: a -> String
+  getPeriodicalTitle :: a -> Text
   getPeriodicalTitle = getSeriesTitle
   getPeriodicalPeriod :: a -> PeriodicalPeriod
   getIssue :: a -> Int
 
 
 class Genre a where
-  getGenre :: a -> String
+  getGenre :: a -> Text
 
 class Category a where
-  getCategory :: a -> String
+  getCategory :: a -> Text
 
 class Tag a where
-  getTag :: a -> String
+  getTag :: a -> Text
 
 class Isbn a where
-  mkIsbn :: String -> a
-  getIsbn :: a -> String
+  mkIsbn :: Text -> a
+  getIsbn :: a -> Text
 
 class Cover a where
   getCover :: a -> b
   mkCover :: b -> a
 
-newtype Name = Name String deriving newtype (Eq, Show)
+newtype Name = Name Text deriving newtype (Eq, Show)
 
 data Person
   = PersonName Name
-  | Alias String
+  | Alias Text
   | Anonymous
   deriving stock (Eq, Show)
 
-mkPersonName :: String -> Person
+mkPersonName :: Text -> Person
 mkPersonName = PersonName . Name
 
-mkPersonAlias :: String -> Person
+mkPersonAlias :: Text -> Person
 mkPersonAlias = Alias
 
 newtype Author = Author Person deriving newtype (Eq, Show)
@@ -124,20 +123,20 @@ newtype Illustrator = Illustrator Person deriving newtype (Eq, Show)
 
 type Ilustrators = [Illustrator]
 
-newtype Title = Title String deriving newtype (Eq, Show)
+newtype Title = Title Text deriving newtype (Eq, Show)
 
 newtype AlternativeTitle = AlternativeTitle Title deriving newtype (Eq, Show)
 
 type AlternativeTitles = [AlternativeTitle]
 
-mkAlternativeTitle :: String -> AlternativeTitle
+mkAlternativeTitle :: Text -> AlternativeTitle
 mkAlternativeTitle = AlternativeTitle . Title
 
-newtype Publisher = Publisher String deriving newtype (Eq, Show)
+newtype Publisher = Publisher Text deriving newtype (Eq, Show)
 
-newtype OriginalLanguage = OriginalLanguage String deriving newtype (Eq, Show)
+newtype OriginalLanguage = OriginalLanguage Text deriving newtype (Eq, Show)
 
-newtype PublicationLanguage = PublicationLanguage String deriving newtype (Eq, Show)
+newtype PublicationLanguage = PublicationLanguage Text deriving newtype (Eq, Show)
 
 newtype NumPages = NumPages Nat.Natural deriving newtype (Eq, Show)
 
@@ -190,7 +189,7 @@ data SimpleBook = SimpleBook
   }
 
 instance Publication SimpleBook where
-  getPublicationTitle :: SimpleBook -> String
+  getPublicationTitle :: SimpleBook -> Text
   getPublicationTitle = show . title
 
   changeReadingStatus :: SimpleBook -> ReadingStatus -> SimpleBook

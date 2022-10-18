@@ -20,7 +20,7 @@ name:               book
 -- PVP summary:     +-+------- breaking API changes
 --                  | | +----- non-breaking API additions
 --                  | | | +--- code changes with no API change
-version:            0.3.0.1
+version:            0.3.1.0
 
 -- A short (one-line) description of the package.
 -- synopsis:
@@ -43,8 +43,10 @@ author:             Ulises Alexander Arguelles Monjaraz
 -- An email address to which users can send suggestions, bug reports, and patches.
 maintainer:         ulises_alexander_am@protonmail.com
 
+stability:          alpha
+
 -- A copyright notice.
--- copyright:
+-- copyright:          (c) 2022 Ulises Alexander Arguelles Monjaraz
 build-type:         Simple
 
 -- Extra doc files to be distributed with the package, such as a CHANGELOG or a README.
@@ -54,8 +56,14 @@ extra-doc-files:    CHANGELOG.md
 -- extra-source-files:
 
 common warnings
-    ghc-options: -Wall
-                 -Wcompat
+    ghc-options: -Weverything
+                 -Wno-missing-import-lists
+                 -Wno-missed-specialisations
+                 -Wno-all-missed-specialisations
+                 -Wno-unsafe
+                 -Wno-safe
+                 -Wno-missing-local-signatures
+                 -Wno-monomorphism-restriction
 
 library
     -- Import common warning flags.
@@ -67,13 +75,18 @@ library
     -- Modules included in this library but not exported.
     -- other-modules:
 
+    default-extensions: OverloadedStrings,
+                        DerivingStrategies,
+                        NoImplicitPrelude
+
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
     build-depends:    
         base ^>=4.17.0.0,
-        time ^>=1.12.2
+        time ^>=1.12.2,
+        RIO
 
     -- Directories containing source files.
     hs-source-dirs:   src
