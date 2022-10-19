@@ -20,7 +20,7 @@ name:               book
 -- PVP summary:     +-+------- breaking API changes
 --                  | | +----- non-breaking API additions
 --                  | | | +--- code changes with no API change
-version:            0.3.1.0
+version:            0.3.1.1
 
 -- A short (one-line) description of the package.
 -- synopsis:
@@ -64,6 +64,8 @@ common warnings
                  -Wno-safe
                  -Wno-missing-local-signatures
                  -Wno-monomorphism-restriction
+                 -Wno-missing-safe-haskell-mode
+                 -Wno-prepositive-qualified-module
 
 library
     -- Import common warning flags.
@@ -84,9 +86,9 @@ library
 
     -- Other library packages from which modules are imported.
     build-depends:    
-        base ^>=4.17.0.0,
+        base ^>=4.16.0.0,
         time ^>=1.12.2,
-        RIO
+        rio
 
     -- Directories containing source files.
     hs-source-dirs:   src
@@ -104,6 +106,11 @@ test-suite book-test
     -- Modules included in this executable, other than Main.
     -- other-modules:
 
+    default-extensions: OverloadedStrings,
+                        DerivingStrategies,
+                        NoImplicitPrelude
+
+
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
 
@@ -118,5 +125,6 @@ test-suite book-test
 
     -- Test dependencies.
     build-depends:
-        base ^>=4.17.0.0,
+        base ^>=4.16.0.0,
+        rio,
         book
