@@ -88,7 +88,7 @@ library
     build-depends:    
         base ^>=4.16.0.0,
         time ^>=1.12.2,
-        rio
+        rio >= 0.1.22
 
     -- Directories containing source files.
     hs-source-dirs:   src
@@ -125,6 +125,7 @@ test-suite book-test
 
     -- Test dependencies.
     build-depends:
-        base ^>=4.16.0.0,
-        rio,
+        rio >= 0.1.22,
+        tasty,
+        tasty-hunit,
         book
