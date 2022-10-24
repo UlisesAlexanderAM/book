@@ -11,7 +11,6 @@ module Book
     Cover (..),
 
     -- * Publication types
-    Person (Anonymous),
     Author (..),
     Authors,
     Translator (..),
@@ -37,16 +36,19 @@ module Book
     PublishingStatus (..),
 
     -- * Custom constructors
-    mkPersonAlias,
-    mkPersonName,
+    mkName,
     mkAlternativeTitle,
+
+    -- * Show funtions
+
+    -- textPersonName,
   )
 where
 
 import Data.Kind (Constraint, Type)
 import Data.Time.Calendar qualified as Calendar (CalendarDiffDays, Day)
 import Numeric.Natural qualified as Nat (Natural)
-import RIO
+import RIO (Eq, Int, Show, Text, (.))
 import RIO.NonEmpty qualified as NE
 
 type Publication :: Type -> Constraint
@@ -101,39 +103,29 @@ class Cover a where
 type Name :: Type
 newtype Name = Name Text deriving newtype (Eq, Show)
 
-type Person :: Type
-data Person
-  = PersonName Name
-  | Alias Text
-  | Anonymous
-  deriving stock (Eq, Show)
-
-mkPersonName :: Text -> Person
-mkPersonName = PersonName . Name
-
-mkPersonAlias :: Text -> Person
-mkPersonAlias = Alias
+mkName :: Text -> Name
+mkName = Name
 
 type Author :: Type
-newtype Author = Author Person deriving newtype (Eq, Show)
+newtype Author = Author Name deriving newtype (Eq, Show)
 
 type Authors :: Type
 type Authors = NE.NonEmpty [Author]
 
 type Translator :: Type
-newtype Translator = Translator Person deriving newtype (Eq, Show)
+newtype Translator = Translator Name deriving newtype (Eq, Show)
 
 type Translators :: Type
 type Translators = [Translator]
 
 type Editor :: Type
-newtype Editor = Editor Person deriving newtype (Eq, Show)
+newtype Editor = Editor Name deriving newtype (Eq, Show)
 
 type Editors :: Type
 type Editors = [Editor]
 
 type Illustrator :: Type
-newtype Illustrator = Illustrator Person deriving newtype (Eq, Show)
+newtype Illustrator = Illustrator Name deriving newtype (Eq, Show)
 
 type Illustrators :: Type
 type Illustrators = [Illustrator]
