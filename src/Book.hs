@@ -51,6 +51,10 @@ import Numeric.Natural qualified as Nat (Natural)
 import RIO (Eq, Int, Show, Text, (.))
 import RIO.NonEmpty qualified as NE
 
+-- * Book data: What it is a book?
+
+-- * Type classes
+
 type Book :: Type -> Constraint
 class Book a where
   getBookTitle :: a -> Text
@@ -100,47 +104,28 @@ class Cover a where
   getCover :: a -> b
   mkCover :: b -> a
 
+-- * Newtypes
+
 type Name :: Type
 newtype Name = Name Text deriving newtype (Eq, Show)
-
-mkName :: Text -> Name
-mkName = Name
 
 type Author :: Type
 newtype Author = Author Name deriving newtype (Eq, Show)
 
-type Authors :: Type
-type Authors = NE.NonEmpty [Author]
-
 type Translator :: Type
 newtype Translator = Translator Name deriving newtype (Eq, Show)
-
-type Translators :: Type
-type Translators = [Translator]
 
 type Editor :: Type
 newtype Editor = Editor Name deriving newtype (Eq, Show)
 
-type Editors :: Type
-type Editors = [Editor]
-
 type Illustrator :: Type
 newtype Illustrator = Illustrator Name deriving newtype (Eq, Show)
-
-type Illustrators :: Type
-type Illustrators = [Illustrator]
 
 type Title :: Type
 newtype Title = Title Text deriving newtype (Eq, Show)
 
 type AlternativeTitle :: Type
 newtype AlternativeTitle = AlternativeTitle Title deriving newtype (Eq, Show)
-
-type AlternativeTitles :: Type
-type AlternativeTitles = [AlternativeTitle]
-
-mkAlternativeTitle :: Text -> AlternativeTitle
-mkAlternativeTitle = AlternativeTitle . Title
 
 type Publisher :: Type
 newtype Publisher = Publisher Text deriving newtype (Eq, Show)
@@ -165,6 +150,25 @@ newtype PubPeriod = PubPeriod Calendar.CalendarDiffDays deriving newtype (Eq, Sh
 
 type PeriodSinceLastPub :: Type
 newtype PeriodSinceLastPub = PeriodSinceLastPub Calendar.CalendarDiffDays deriving newtype (Eq, Show)
+
+-- * Type synonyms
+
+type Authors :: Type
+type Authors = NE.NonEmpty [Author]
+
+type Translators :: Type
+type Translators = [Translator]
+
+type Editors :: Type
+type Editors = [Editor]
+
+type Illustrators :: Type
+type Illustrators = [Illustrator]
+
+type AlternativeTitles :: Type
+type AlternativeTitles = [AlternativeTitle]
+
+-- * Data types
 
 type PublicationFormat :: Type
 data PublicationFormat
@@ -198,3 +202,13 @@ data PeriodicalPeriod
   | Quaterly
   | Annually
   deriving stock (Eq, Show)
+
+-- * Book computations
+
+mkName :: Text -> Name
+mkName = Name
+
+mkAlternativeTitle :: Text -> AlternativeTitle
+mkAlternativeTitle = AlternativeTitle . Title
+
+-- * Actions: How we interact with the world?
