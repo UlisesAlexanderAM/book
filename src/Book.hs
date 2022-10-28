@@ -1,6 +1,6 @@
 module Book
-  ( -- * Publication classes
-    Publication (..),
+  ( -- * Book classes
+    Book (..),
     Collection (..),
     Serial (..),
     Periodical (..),
@@ -10,7 +10,7 @@ module Book
     Isbn (..),
     Cover (..),
 
-    -- * Publication types
+    -- * Book types
     Author (..),
     Authors,
     Translator (..),
@@ -24,7 +24,7 @@ module Book
     AlternativeTitles,
     Publisher (..),
     OriginalLanguage (..),
-    PublicationLanguage (..),
+    BookLanguage (..),
     NumPages (..),
     NumWords (..),
     PubDate (..),
@@ -51,21 +51,21 @@ import Numeric.Natural qualified as Nat (Natural)
 import RIO (Eq, Int, Show, Text, (.))
 import RIO.NonEmpty qualified as NE
 
-type Publication :: Type -> Constraint
-class Publication a where
-  getPublicationTitle :: a -> Text
+type Book :: Type -> Constraint
+class Book a where
+  getBookTitle :: a -> Text
   changeReadingStatus :: a -> ReadingStatus -> a
   updatePeriodSinceLastPub :: a -> PeriodSinceLastPub -> a
 
 type Collection :: Type -> Constraint
-class Publication a => Collection a where
+class Book a => Collection a where
   getCollectionTitle :: a -> Text
-  getCollectionTitle = getPublicationTitle
+  getCollectionTitle = getBookTitle
 
 type Serial :: Type -> Constraint
-class Publication a => Serial a where
+class Book a => Serial a where
   getSeriesTitle :: a -> Text
-  getSeriesTitle = getPublicationTitle
+  getSeriesTitle = getBookTitle
   updateVolumes :: a -> Int -> a
   changePubPeriod :: a -> PubPeriod -> a
   updatePublishingStatus :: a -> PublishingStatus -> a
@@ -148,8 +148,8 @@ newtype Publisher = Publisher Text deriving newtype (Eq, Show)
 type OriginalLanguage :: Type
 newtype OriginalLanguage = OriginalLanguage Text deriving newtype (Eq, Show)
 
-type PublicationLanguage :: Type
-newtype PublicationLanguage = PublicationLanguage Text deriving newtype (Eq, Show)
+type BookLanguage :: Type
+newtype BookLanguage = PublicationLanguage Text deriving newtype (Eq, Show)
 
 type NumPages :: Type
 newtype NumPages = NumPages Nat.Natural deriving newtype (Eq, Show)
