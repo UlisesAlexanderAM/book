@@ -104,49 +104,81 @@ class Cover a where
 -- * Newtypes
 
 type Name :: Type
-newtype Name = Name (NonEmpty Text) deriving newtype (Eq, Show)
+newtype Name where
+  Name :: NonEmpty Text -> Name
+  deriving newtype (Eq, Show)
 
 type Author :: Type
-newtype Author = Author (NonEmpty Name) deriving newtype (Eq, Show)
+newtype Author where
+  Author :: NonEmpty Name -> Author
+  deriving newtype (Eq, Show)
 
 type Translator :: Type
-newtype Translator = Translator (NonEmpty Name) deriving newtype (Eq, Show)
+newtype Translator where
+  Translator :: NonEmpty Name -> Translator
+  deriving newtype (Eq, Show)
 
 type Editor :: Type
-newtype Editor = Editor (NonEmpty Name) deriving newtype (Eq, Show)
+newtype Editor where
+  Editor :: NonEmpty Name -> Editor
+  deriving newtype (Eq, Show)
 
 type Illustrator :: Type
-newtype Illustrator = Illustrator (NonEmpty Name) deriving newtype (Eq, Show)
+newtype Illustrator where
+  Illustrator :: NonEmpty Name -> Illustrator
+  deriving newtype (Eq, Show)
 
 type Title :: Type
-newtype Title = Title (NonEmpty Text) deriving newtype (Eq, Show)
+newtype Title where
+  Title :: NonEmpty Text -> Title
+  deriving newtype (Eq, Show)
 
 type AlternativeTitle :: Type
-newtype AlternativeTitle = AlternativeTitle (NonEmpty Title) deriving newtype (Eq, Show)
+newtype AlternativeTitle where
+  AlternativeTitle :: NonEmpty Title -> AlternativeTitle
+  deriving newtype (Eq, Show)
 
 type Publisher :: Type
-newtype Publisher = Publisher (NonEmpty Text) deriving newtype (Eq, Show)
+newtype Publisher where
+  Publisher :: NonEmpty Text -> Publisher
+  deriving newtype (Eq, Show)
 
 type OriginalLanguage :: Type
-newtype OriginalLanguage = OriginalLanguage (NonEmpty Text) deriving newtype (Eq, Show)
+newtype OriginalLanguage where
+  OriginalLanguage :: NonEmpty Text -> OriginalLanguage
+  deriving newtype (Eq, Show)
 
 type BookLanguage :: Type
-newtype BookLanguage = PublicationLanguage (NonEmpty Text) deriving newtype (Eq, Show)
+newtype BookLanguage where
+  BookLanguage :: NonEmpty Text -> BookLanguage
+  deriving newtype (Eq, Show)
 
 type NumPages :: Type
-newtype NumPages = NumPages Natural deriving newtype (Eq, Show)
+newtype NumPages where
+  NumPages :: Natural -> NumPages
+  deriving newtype (Eq, Show)
 
 type NumWords :: Type
-newtype NumWords = NumWords Natural deriving newtype (Eq, Show)
+newtype NumWords where
+  NumWords :: Natural -> NumWords
+  deriving newtype (Eq, Show)
 
 type PubDate :: Type
-newtype PubDate = PubDate Calendar.Day deriving newtype (Eq, Show)
+newtype PubDate where
+  PubDate :: Calendar.Day -> PubDate
+  deriving newtype (Eq, Show)
 
 type PubPeriod :: Type
-newtype PubPeriod = PubPeriod Calendar.CalendarDiffDays deriving newtype (Eq, Show)
+newtype PubPeriod where
+  PubPeriod :: Calendar.CalendarDiffDays -> PubPeriod
+  deriving newtype (Eq, Show)
 
 type PeriodSinceLastPub :: Type
-newtype PeriodSinceLastPub = PeriodSinceLastPub Calendar.CalendarDiffDays deriving newtype (Eq, Show)
+newtype PeriodSinceLastPub where
+  PeriodSinceLastPub ::
+    Calendar.CalendarDiffDays ->
+    PeriodSinceLastPub
+  deriving newtype (Eq, Show)
 
 -- * Type synonyms
 
@@ -168,36 +200,36 @@ type AlternativeTitles = [AlternativeTitle]
 -- * Data types
 
 type PublicationFormat :: Type
-data PublicationFormat
-  = Physical
-  | Digital
+data PublicationFormat where
+  Physical :: PublicationFormat
+  Digital :: PublicationFormat
   deriving stock (Eq, Show)
 
 type ReadingStatus :: Type
-data ReadingStatus
-  = Reading
-  | Read
-  | WantedToRead
-  | Pause
-  | Dropped
+data ReadingStatus where
+  Reading :: ReadingStatus
+  Read :: ReadingStatus
+  WantedToRead :: ReadingStatus
+  Pause :: ReadingStatus
+  Dropped :: ReadingStatus
   deriving stock (Eq, Show)
 
 type PublishingStatus :: Type
-data PublishingStatus
-  = Publishing
-  | Finished
-  | Hiatus
-  | Cancelled
+data PublishingStatus where
+  Publishing :: PublishingStatus
+  Finished :: PublishingStatus
+  Hiatus :: PublishingStatus
+  Cancelled :: PublishingStatus
   deriving stock (Eq, Show)
 
 type PeriodicalPeriod :: Type
-data PeriodicalPeriod
-  = Weekly
-  | Biweekly
-  | Monthly
-  | Bimonthly
-  | Quaterly
-  | Annually
+data PeriodicalPeriod where
+  Weekly :: PeriodicalPeriod
+  Biweekly :: PeriodicalPeriod
+  Monthly :: PeriodicalPeriod
+  Bimonthly :: PeriodicalPeriod
+  Quaterly :: PeriodicalPeriod
+  Annually :: PeriodicalPeriod
   deriving stock (Eq, Show)
 
 -- * Book computations
