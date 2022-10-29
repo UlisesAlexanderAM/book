@@ -20,7 +20,7 @@ name:               book
 -- PVP summary:     +-+------- breaking API changes
 --                  | | +----- non-breaking API additions
 --                  | | | +--- code changes with no API change
-version:            0.4.0.0
+version:            0.4.1.0
 
 -- A short (one-line) description of the package.
 -- synopsis:
@@ -88,7 +88,7 @@ library
     build-depends:    
         base ^>=4.16.0.0,
         time ^>=1.12.2,
-        rio >= 0.1.22
+        universum
 
     -- Directories containing source files.
     hs-source-dirs:   src
@@ -125,7 +125,7 @@ test-suite book-test
 
     -- Test dependencies.
     build-depends:
-        rio >= 0.1.22,
+        universum,
         tasty,
         tasty-hunit,
         book

@@ -45,11 +45,8 @@ module Book
   )
 where
 
-import Data.Kind (Constraint, Type)
 import Data.Time.Calendar qualified as Calendar (CalendarDiffDays, Day)
-import Numeric.Natural qualified as Nat (Natural)
-import RIO (Eq, Int, Show, Text, (.))
-import RIO.NonEmpty qualified as NE
+import Universum
 
 -- * Book data: What it is a book?
 
