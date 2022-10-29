@@ -104,40 +104,40 @@ class Cover a where
 -- * Newtypes
 
 type Name :: Type
-newtype Name = Name Text deriving newtype (Eq, Show)
+newtype Name = Name (NonEmpty Text) deriving newtype (Eq, Show)
 
 type Author :: Type
-newtype Author = Author Name deriving newtype (Eq, Show)
+newtype Author = Author (NonEmpty Name) deriving newtype (Eq, Show)
 
 type Translator :: Type
-newtype Translator = Translator Name deriving newtype (Eq, Show)
+newtype Translator = Translator (NonEmpty Name) deriving newtype (Eq, Show)
 
 type Editor :: Type
-newtype Editor = Editor Name deriving newtype (Eq, Show)
+newtype Editor = Editor (NonEmpty Name) deriving newtype (Eq, Show)
 
 type Illustrator :: Type
-newtype Illustrator = Illustrator Name deriving newtype (Eq, Show)
+newtype Illustrator = Illustrator (NonEmpty Name) deriving newtype (Eq, Show)
 
 type Title :: Type
-newtype Title = Title Text deriving newtype (Eq, Show)
+newtype Title = Title (NonEmpty Text) deriving newtype (Eq, Show)
 
 type AlternativeTitle :: Type
-newtype AlternativeTitle = AlternativeTitle Title deriving newtype (Eq, Show)
+newtype AlternativeTitle = AlternativeTitle (NonEmpty Title) deriving newtype (Eq, Show)
 
 type Publisher :: Type
-newtype Publisher = Publisher Text deriving newtype (Eq, Show)
+newtype Publisher = Publisher (NonEmpty Text) deriving newtype (Eq, Show)
 
 type OriginalLanguage :: Type
-newtype OriginalLanguage = OriginalLanguage Text deriving newtype (Eq, Show)
+newtype OriginalLanguage = OriginalLanguage (NonEmpty Text) deriving newtype (Eq, Show)
 
 type BookLanguage :: Type
-newtype BookLanguage = PublicationLanguage Text deriving newtype (Eq, Show)
+newtype BookLanguage = PublicationLanguage (NonEmpty Text) deriving newtype (Eq, Show)
 
 type NumPages :: Type
-newtype NumPages = NumPages Nat.Natural deriving newtype (Eq, Show)
+newtype NumPages = NumPages Natural deriving newtype (Eq, Show)
 
 type NumWords :: Type
-newtype NumWords = NumWords Nat.Natural deriving newtype (Eq, Show)
+newtype NumWords = NumWords Natural deriving newtype (Eq, Show)
 
 type PubDate :: Type
 newtype PubDate = PubDate Calendar.Day deriving newtype (Eq, Show)
@@ -151,7 +151,7 @@ newtype PeriodSinceLastPub = PeriodSinceLastPub Calendar.CalendarDiffDays derivi
 -- * Type synonyms
 
 type Authors :: Type
-type Authors = NE.NonEmpty [Author]
+type Authors = NonEmpty [Author]
 
 type Translators :: Type
 type Translators = [Translator]
@@ -202,10 +202,10 @@ data PeriodicalPeriod
 
 -- * Book computations
 
-mkName :: Text -> Name
+mkName :: NonEmpty Text -> Name
 mkName = Name
 
-mkAlternativeTitle :: Text -> AlternativeTitle
-mkAlternativeTitle = AlternativeTitle . Title
+-- mkAlternativeTitle :: NonEmpty Text -> AlternativeTitle
+-- mkAlternativeTitle = AlternativeTitle . nonEmpty ([Title])
 
 -- * Actions: How we interact with the world?
