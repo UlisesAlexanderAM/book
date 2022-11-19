@@ -1,7 +1,8 @@
 module Main (main) where
 
-import Test.Tasty
-import Test.Tasty.HUnit
+import Book (mkName)
+import Test.Tasty (TestTree, defaultMain, testGroup)
+import Test.Tasty.HUnit (testCase, (@?=))
 import Test.Tasty.Runners (TestTree (TestGroup))
 import Universum
 
@@ -27,5 +28,5 @@ personTests =
       testCase "Two equal names are equal" $
         mkName "Ulises Alexander" == mkName "Ulises Alexander" @?= True,
       testCase "Show Name" $
-        (show . mkName $ "Ulises Alexander") == show ("Ulises Alexander" :: Text) @?= True
+        (show . mkName $ ("Ulises Alexander" :: Text)) == (show ("Ulises Alexander" :: Text)) @?= True
     ]
