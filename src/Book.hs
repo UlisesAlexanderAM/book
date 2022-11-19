@@ -37,11 +37,9 @@ module Book
 
     -- * Custom constructors
     mkName,
-    mkAlternativeTitle,
+    -- mkAlternativeTitle,
 
     -- * Show funtions
-
-    -- textPersonName,
   )
 where
 
@@ -105,7 +103,7 @@ class Cover a where
 
 type Name :: Type
 newtype Name where
-  Name :: NonEmpty Text -> Name
+  Name :: Text -> Name
   deriving newtype (Eq, Show)
 
 type Author :: Type
@@ -234,8 +232,10 @@ data PeriodicalPeriod where
 
 -- * Book computations
 
-mkName :: NonEmpty Text -> Name
-mkName = Name
+mkName :: Text -> Name
+mkName text = case length text of
+  0 -> error "Invalid name"
+  _ -> Name text
 
 -- mkAlternativeTitle :: NonEmpty Text -> AlternativeTitle
 -- mkAlternativeTitle = AlternativeTitle . nonEmpty ([Title])
